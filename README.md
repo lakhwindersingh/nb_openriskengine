@@ -1,5 +1,5 @@
 # nb_openriskengine
-SWIG'ed and container compiled openrisk engine provided by Acadiasoft. Code is natively compiled on Ubuntu (20.04) to deliver performance. 
+SWIG'ed and container compiled openrisk engine provided by Acadiasoft. Thank you Acadia! Code is natively compiled on Ubuntu (20.04) to deliver performance. 
 
 Documentation for Open Risk Engine is available at https://github.com/OpenSourceRisk
 
