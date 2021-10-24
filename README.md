@@ -13,7 +13,7 @@ Documentation for Open Risk Engine is available at https://github.com/OpenSource
 
         docker-compose up
         
-4. Point your browser to https://0.0.0.0:8282 or https://127.0.0.1:8282 to run quantlib python samples        
+4. Point your browser to https://0.0.0.0:8282 or https://127.0.0.1:8282 to run quantlib python samples (not included)       
 
 Note: You might have to change Jupyter setting in Dockerfile to match your security preferences.
 
