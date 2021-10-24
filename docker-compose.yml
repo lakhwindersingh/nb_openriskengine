@@ -1,12 +1,12 @@
 version: "3.7"
 
 services:
-  nb_quantlib:
+  nb_ore:
       build:
         context: .
         dockerfile: Dockerfile
-      image: nb_quantlib
-      container_name: nb_quantlib
+      image: nb_ore
+      container_name: nb_ore
       environment:
         TZ: "America/new_york"
       ports:
