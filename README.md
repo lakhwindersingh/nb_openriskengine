@@ -1,5 +1,7 @@
 # nb_openriskengine
-SWIG'ed and container compiled openrisk engine provided by Acadiasoft. Code is natively compiled on Ubuntu (20.04) to deliver performance.
+SWIG'ed and container compiled openrisk engine provided by Acadiasoft. Code is natively compiled on Ubuntu (20.04) to deliver performance. 
+
+Documentation for Open Risk Engine is available at https://github.com/OpenSourceRisk
 
 1. Docker compose expects location at line 15 in docker-compose.yml, currently pointing towards </data/code/projects/notebook>, which will be mapped to /home/jupyter/notebook. Replace this prior to running following commands.
 
