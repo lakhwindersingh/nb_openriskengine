@@ -1,4 +1,4 @@
-# nb_openriskengine
+# nb_openriskengine (Woek under progress to gracefully compile cmake extension prior to beta release)
 SWIG'ed and container compiled openrisk engine provided by Acadiasoft. Thank you Acadia! Code is natively compiled on Ubuntu (20.04) to deliver performance. 
 
 Documentation for Open Risk Engine is available at https://github.com/OpenSourceRisk
