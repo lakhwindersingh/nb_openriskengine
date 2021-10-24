@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  nb_quantlib:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      image: nb_quantlib
+      container_name: nb_quantlib
+      environment:
+        TZ: "America/new_york"
+      ports:
+        - "8282:8282"
+      volumes:
+        - /data/code/projects/notebook:/home/jupyter/notebook
+        - /etc/localtime:/etc/localtime:ro
