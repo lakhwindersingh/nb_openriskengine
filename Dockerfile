@@ -25,15 +25,11 @@ RUN apt-get -y install libarmadillo-dev binutils-dev
 RUN git clone https://github.com/opensourcerisk/engine.git ore
 RUN  cd ore && git submodule init && git submodule update
 
-# RUN mkdir QuantLib/build && cmake -DBOOST_ROOT=$BOOST -DBOOST_LIBRARYDIR=$BOOST/stage/lib .. && cmake .. && make -j4 && ctest -j4
 RUN cd /ore && mkdir build && cd build && cmake -DBOOST_ROOT=$BOOST -DBOOST_LIBRARYDIR=$BOOST/stage/lib .. && cmake .. && make -j4 && ctest -j4
 
-#RUN git clone –recurse-submodules https://github.com/opensourcerisk/engine.git ore
-RUN rm -rf QuantLibExt
 RUN git clone https://github.com/opensourcerisk/ore-swig ore-swig
 RUN  cd ore-swig && git submodule init && git submodule update
 
-# RUN mkdir QuantLib/build && cmake -DBOOST_ROOT=$BOOST -DBOOST_LIBRARYDIR=$BOOST/stage/lib .. && cmake .. && make -j4 && ctest -j4
 RUN cd /ore-swig && mkdir build && cd build && cmake -DBOOST_ROOT=$BOOST -DBOOST_LIBRARYDIR=$BOOST/stage/lib .. && cmake .. && make -j4 && ctest -j4
 RUN cmake && \
 -D ORE=/ore && \
