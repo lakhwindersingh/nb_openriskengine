@@ -32,7 +32,7 @@ RUN  cd ore-swig && git submodule init && git submodule update
 
 RUN apt-get install ninja-build
 RUN cd /ore-swig && mkdir build && cd build && cmake -DBOOST_ROOT=$BOOST -DBOOST_LIBRARYDIR=$BOOST/stage/lib .. && cmake .. && make -j4 && ctest -j4
-RUN cmake && \
+RUN cmake -G Ninja && \
 -D ORE=/ore && \
 -D BOOST_ROOT=$BOOST_ROOT &&\
 -D BOOST_LIBRARYDIR=$BOOST/stage/lib  && \
