@@ -1,13 +1,13 @@
   
-FROM ubuntu:20.10 AS quantlib_stage
+FROM ubuntu:20.10 AS or_engine
 
 USER root
 ENV DEBIAN_FRONTEND noninteractive
 ARG TAG=latest
-ARG PYTHON_VERSION=3.8
-ARG QUANTLIB_VERSION=1.22
+ARG PYTHON_VERSION=3.9
+ARG ORE_VERSION=1.22
 
-ENV QUANTLIB_VERSION="${QUANTLIB_VERSION}"
+ENV ORE_VERSION="${ORE_VERSION}"
 ENV PYTHON_VERSION="${PYTHON_VERSION}"
 ENV BOOST=/usr/include/boost
 
@@ -32,13 +32,14 @@ RUN  cd ore-swig && git submodule init && git submodule update
 
 RUN apt-get install ninja-build swig
 RUN cd /ore-swig && mkdir build && cd build && cmake -DBOOST_ROOT=$BOOST -DBOOST_LIBRARYDIR=$BOOST/stage/lib .. && cmake .. && make -j4 && ctest -j4
-RUN cmake -G Ninja && \
+RUN cmake -G ninja && \
 -D ORE=/ore && \
 -D BOOST_ROOT=$BOOST_ROOT &&\
 -D BOOST_LIBRARYDIR=$BOOST/stage/lib  && \
 -D PYTHON_LIBRARY=/usr/local/bin/python3 && \
 -D PYTHON_INCLUDE_DIR=/usr/include/python"${PYTHON_VERSION}" \
 -S OREAnalytics-SWIG/Python \
+-B build
 .. && ninja
 
 
