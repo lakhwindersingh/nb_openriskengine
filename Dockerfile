@@ -17,7 +17,7 @@ ENV LANG=en_US.UTF-8
 RUN apt-get update
 RUN apt-get -y install apt-utils git sudo wget curl software-properties-common build-essential gcc cmake protobuf-compiler
 RUN apt-get -y install libboost-dev libboost-all-dev libboost-math-dev libboost-test-dev libboost-serialization-dev
-RUN apt-get -y install python3-setuptools python3 python3-pip libpng-dev python-dev cython3
+RUN apt-get -y install python3-setuptools python3 python3-pip libpng-dev python-dev cython3 doxygen ninja-build swig
 RUN apt-get -y upgrade
 
 RUN apt-get -y install libarmadillo-dev binutils-dev
@@ -30,7 +30,6 @@ RUN cd /ore && mkdir build && cd build && cmake -DBOOST_ROOT=$BOOST -DBOOST_LIBR
 RUN git clone https://github.com/opensourcerisk/ore-swig ore-swig
 RUN  cd ore-swig && git submodule init && git submodule update
 
-RUN apt-get install ninja-build swig
 RUN cd /ore-swig && mkdir build && cd build && cmake -DBOOST_ROOT=$BOOST -DBOOST_LIBRARYDIR=$BOOST/stage/lib .. && cmake .. && make -j4 && ctest -j4
 RUN cmake -G ninja && \
 -D ORE=/ore && \
