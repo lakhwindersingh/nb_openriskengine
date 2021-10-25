@@ -39,7 +39,7 @@ RUN cmake -G ninja && \
 -D PYTHON_LIBRARY=/usr/local/bin/python3 && \
 -D PYTHON_INCLUDE_DIR=/usr/include/python"${PYTHON_VERSION}" \
 -S OREAnalytics-SWIG/Python \
--B build
+-B build \
 .. && ninja
 
 
