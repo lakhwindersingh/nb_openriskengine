@@ -28,12 +28,13 @@ RUN cd ore && git submodule init && git submodule update && mkdir build && cd bu
     cmake -DBOOST_ROOT=$BOOST -DBOOST_LIBRARYDIR=$BOOST/stage/lib .. && cmake .. && make -j8 && ctest -j8 
 
 RUN git clone https://github.com/opensourcerisk/ore-swig ore-swig
-RUN cd ore-swig && git submodule init && git submodule update && mkdir build && cd build && \
-    cmake -GNinja -DORE=/ore -DPYTHON_LIBRARY=/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python"${PYTHON_VERSION}" \
-    -S/ore-swig/OREAnalytics-SWIG/Python  \
-    -B/ore-swig/build .. && cd /ore-swig/build && \ 
-    ninja 
- 
+#RUN cd ore-swig && git submodule init && git submodule update && mkdir build && cd build && \
+#    cmake -GNinja -DORE=/ore -DPYTHON_LIBRARY=/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python"${PYTHON_VERSION}" \
+#    -S/ore-swig/OREAnalytics-SWIG/Python  \
+#    -B/ore-swig/build .. && cd /ore-swig/build && \ 
+#    ninja 
+RUN cd ore-swig && git submodule init && git submodule update && pwd && ls -l && cp LICENSE.txt OREAnalytics-SWIG/LICENSE.TXT && cd OREAnalytics-SWIG/Python && python3 setup.py wrap
+
 RUN pip install jupyter jupyterlab
 
 # Setup for Jupyter Notebook
