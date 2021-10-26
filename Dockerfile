@@ -18,29 +18,22 @@ RUN apt-get update
 RUN apt-get -y install apt-utils git sudo wget curl software-properties-common build-essential gcc cmake protobuf-compiler
 RUN apt-get -y install libboost-dev libboost-all-dev libboost-math-dev libboost-test-dev libboost-serialization-dev
 RUN apt-get -y install python3-setuptools python3 python3-pip libpng-dev python-dev cython3 doxygen ninja-build swig
-RUN apt-get -y upgrade
-
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install python"${PYTHON_VERSION}"-dev libpython"${PYTHON_VERSION}"-dev
 RUN apt-get -y install libarmadillo-dev binutils-dev
 
+RUN apt-get -y upgrade
+
 RUN git clone https://github.com/opensourcerisk/engine.git ore
-RUN  cd ore && git submodule init && git submodule update
+RUN cd ore && git submodule init && git submodule update && mkdir build && cd build && \
+    cmake -DBOOST_ROOT=$BOOST -DBOOST_LIBRARYDIR=$BOOST/stage/lib .. && cmake .. && make -j8 && ctest -j8 
 
-RUN cd /ore && mkdir build && cd build && cmake -DBOOST_ROOT=$BOOST -DBOOST_LIBRARYDIR=$BOOST/stage/lib .. && cmake .. && make -j4 && ctest -j4
-
-RUN sudo apt-get install cmake --upgrade
 RUN git clone https://github.com/opensourcerisk/ore-swig ore-swig
-
-RUN cd ore-swig && git submodule init && git submodule update && mkdir build && cd build
-
-RUN sudo DEBIAN_FRONTEND="noninteractive" apt-get -y install python"${PYTHON_VERSION}"-dev libpython"${PYTHON_VERSION}"-dev
-
-RUN cmake -GNinja -DORE=/ore -DPYTHON_LIBRARY=/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python"${PYTHON_VERSION}" \
+RUN cd ore-swig && git submodule init && git submodule update && mkdir build && cd build && \
+    cmake -GNinja -DORE=/ore -DPYTHON_LIBRARY=/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python"${PYTHON_VERSION}" \
     -S/ore-swig/OREAnalytics-SWIG/Python  \
     -B/ore-swig/build .. && cd /ore-swig/build && \ 
     ninja 
-    #cmake --build . --config Debug --target generated
-    #cmake /ore-swig/build && make -j4 && ctest -j4
-
+ 
 RUN pip install jupyter jupyterlab
 
 # Setup for Jupyter Notebook
