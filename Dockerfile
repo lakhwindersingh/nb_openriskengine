@@ -30,24 +30,15 @@ RUN cd /ore && mkdir build && cd build && cmake -DBOOST_ROOT=$BOOST -DBOOST_LIBR
 RUN sudo apt-get install cmake --upgrade
 RUN git clone https://github.com/opensourcerisk/ore-swig ore-swig
 
-RUN ls -l ore-swig
-RUN cd ore-swig && git submodule init && git submodule update && \
-        mkdir build && cd build
-
-RUN ln -s /usr/bin/python3 /usr/local/bin/python3 
-
-RUN ln -s /usr/include/python"${PYTHON_VERSION}" /usr/local/include/python"${PYTHON_VERSION}"
-
-ENV PYTHON_LIBRARY=/usr/local/bin/python3 
-ENV PYTHON_INCLUDE_DIR=/usr/include/python"${PYTHON_VERSION}"
+RUN cd ore-swig && git submodule init && git submodule update && mkdir build && cd build
 
 RUN sudo DEBIAN_FRONTEND="noninteractive" apt-get -y install python"${PYTHON_VERSION}"-dev libpython"${PYTHON_VERSION}"-dev
 
-RUN cmake -GNinja -DORE=/ore -DBOOST_ROOT=$BOOST_ROOT -DBOOST_LIBRARYDIR=$BOOST/stage/lib  -DPYTHON_LIBRARY=/usr/local/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python"${PYTHON_VERSION}" \
+RUN cmake -GNinja -DORE=/ore -DPYTHON_LIBRARY=/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python"${PYTHON_VERSION}" \
     -S/ore-swig/OREAnalytics-SWIG/Python  \
-    -B/ore-swig/build .. && ls -l /ore-swig/build && cd /ore-swig/build && \ 
-    #ninja 
-    cmake --build . --config Debug --target generated
+    -B/ore-swig/build .. && cd /ore-swig/build && \ 
+    ninja 
+    #cmake --build . --config Debug --target generated
     #cmake /ore-swig/build && make -j4 && ctest -j4
 
 RUN pip install jupyter jupyterlab
